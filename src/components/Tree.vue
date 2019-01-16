@@ -93,7 +93,7 @@
           const columns = this.columns;
           const header = this.header;
           columns.splice(0);
-          for(let node of this.$slots.default){
+          for(let node of this.$slots.default) {
               if (node.tag) {
                   this.vif = node.data && node.data.attrs.vif ? node.data.attrs.vif : this.vif;
                   this.vClass = node.data && node.data.attrs.$class ? node.data.attrs.$class : this.vClass;
@@ -105,7 +105,7 @@
                   });
                   break;
               }
-          };
+          }
           if (this.$slots.header) {
               this.$slots.header.forEach(function (node) {
                   if (node.tag) {

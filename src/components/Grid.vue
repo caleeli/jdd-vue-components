@@ -38,7 +38,7 @@ export default {
     props: {
         value: Array,
         filter: String,
-        filterBy: "",
+        filterBy: String,
         pageSize: Number,
         options: Object,
         withoutNavbar: Boolean,
