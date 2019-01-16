@@ -1,0 +1,6 @@
+.DS_Store
+/.idea
+/.vscode
+/nbproject
+/node_modules
+package-lock.json
