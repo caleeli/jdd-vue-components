@@ -4,6 +4,7 @@ import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import App from './App.vue';
+import {api} from './index.js';
 
 // Boot
 window._ = require('lodash');
@@ -16,8 +17,10 @@ require('clockpicker/dist/bootstrap-clockpicker.js');
 require('bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js');
 moment.locale('es');
 window.Vue = Vue;
-
 Vue.config.productionTip = false;
+
+// Api helpers
+Object.assign(window, api);
 
 new Vue({
     render: h => h(App),

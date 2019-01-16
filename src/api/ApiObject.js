@@ -1,24 +1,25 @@
+import ApiStorage from './ApiStorage';
+
 function ApiObject(url, errorsObject) {
     var storage;
     var self = this;
     var onupdate;
     errorsObject = errorsObject === undefined ? {message: "", errors: []} : errorsObject;
     function cleanErrors() {
-        Vue.set(errorsObject, 'message', "");
-        Vue.set(errorsObject, 'errors', []);
+        window.Vue.set(errorsObject, 'message', "");
+        window.Vue.set(errorsObject, 'errors', []);
     }
     this.listenStorage = (data) => {
         for (var attr in data) {
-            Vue.set(self, attr, data[attr]);
+            window.Vue.set(self, attr, data[attr]);
         }
         onupdate instanceof Function ? onupdate(self) : null;
     };
-    this.listenLoading = (loading) => {
-        //self.loading = loading;
+    this.listenLoading = () => {
     };
     this.listenErrors = (error) => {
         for (var a in error) {
-            Vue.set(errorsObject, a, error[a]);
+            window.Vue.set(errorsObject, a, error[a]);
         }
     };
     self.loadFromAPI = function(newURL) {
@@ -91,4 +92,4 @@ Object.evaluateRef = function(item, path) {
 }
 
 // Exports the class
-module.exports = ApiObject;
+export default ApiObject;

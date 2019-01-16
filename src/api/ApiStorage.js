@@ -45,7 +45,6 @@ function ApiStorage(url, object) {
             var string = window.localStorage[url];
             string ? item.listenStorage(JSON.parse(string)) : null;
         } catch (e) {
-            console.log(e);
         }
     }
     this.unregister = function(item) {
@@ -67,4 +66,4 @@ function ApiStorage(url, object) {
 ApiStorage.instances = {};
 
 // Exports the class
-module.exports = ApiStorage;
+export default ApiStorage;

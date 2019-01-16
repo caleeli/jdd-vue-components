@@ -1,12 +1,13 @@
+import ApiStorage from './ApiStorage';
+
 function ApiArray(url, errorsObject) {
-    var me = this;
     var self = new Array();
     var storage;
     self.loading = false;
     errorsObject = errorsObject === undefined ? {message: "", errors: []} : errorsObject;
     function cleanErrors() {
-        Vue.set(errorsObject, 'message', "");
-        Vue.set(errorsObject, 'errors', []);
+        window.Vue.set(errorsObject, 'message', "");
+        window.Vue.set(errorsObject, 'errors', []);
     }
     this.listenStorage = (data) => {
         self.loading = false;
@@ -18,7 +19,7 @@ function ApiArray(url, errorsObject) {
     self.listenStorage = this.listenStorage;
     this.listenErrors = (error) => {
         for (var a in error) {
-            Vue.set(errorsObject, a, error[a]);
+            window.Vue.set(errorsObject, a, error[a]);
         }
     };
     this.listenLoading = (loading) => {
@@ -88,4 +89,4 @@ String.findInHTML = function(text, search) {
 }
 
 // Exports the class
-module.exports = ApiArray;
+export default ApiArray;
