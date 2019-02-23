@@ -9,20 +9,23 @@
 </template>
 
 <script>
-  export default {
-      props: {
-          action: Object
-      },
-      methods: {
-          type() {
-              return this.action.href ? 'router-link' : 'a';
-          },
-          click() {
-              if (this.action.active !== undefined) {
-                  this.action.active = !this.action.active;
-              }
-              this.$emit('click');
-          }
-      }
+    import Component from '../mixins/Component';
+    export default {
+        mixins: [Component],
+        props: {
+            action: Object
+        },
+        methods: {
+            type() {
+                return this.action.href ? 'router-link' : 'a';
+            },
+            click(event) {
+                if (this.action.active !== undefined) {
+                    this.action.active = !this.action.active;
+                }
+                this.$emit('click');
+                this.jddClick(event);
+            }
+        }
   }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="select-owner">
+    <div class="select-owner" @click="jddClick">
         <div v-if="selected && !inputFocus" class="selected-option"><slot :row="selected" :format="textValue"></slot></div>
         <div v-if="!(selected && !inputFocus) && !inputFocus" class="selected-option">{{value}}</div>
         <input  class="form-control selected-input dropdown-toggle" data-toggle="dropdown"
@@ -15,7 +15,9 @@
 </template>
 
 <script>
+    import Component from '../mixins/Component';
     export default {
+        mixins: [Component],
         props: {
             placeholder: String,
             data: {

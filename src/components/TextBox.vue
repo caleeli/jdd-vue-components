@@ -1,5 +1,5 @@
 <template>
-    <div class="text-box-wraper">
+    <div class="text-box-wraper" @click="jddClick">
         <textarea class="form-control input" rows="2" v-model="text" @keyup="update" @mouseup="update" @scroll="update"></textarea>
         <div class="output"><span></span></div>
         <div class="dropdown-menu" :style="xy">
@@ -9,7 +9,9 @@
 </template>
 
 <script>
+    import Component from '../mixins/Component';
     export default {
+        mixins: [Component],
         props: {
             value: String,
             reference: Function,
