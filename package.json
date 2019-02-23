@@ -1,6 +1,6 @@
 {
   "name": "vue-jdd-components",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -14,6 +14,7 @@
     "clockpicker": "0.0.7",
     "d3": "^5.7.0",
     "moment": "^2.23.0",
+    "sass-loader": "^7.1.0",
     "vue": "^2.5.21"
   },
   "devDependencies": {
@@ -27,7 +28,6 @@
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.11.0",
     "popper.js": "^1.14.6",
-    "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
