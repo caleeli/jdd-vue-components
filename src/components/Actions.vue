@@ -13,7 +13,7 @@
 
 <script>
     import Action from './Action.vue';
-    import Component from '../mixins/Component';
+    import Component from '../mixins/Component.js';
     export default {
         mixins: [Component],
         components: {
