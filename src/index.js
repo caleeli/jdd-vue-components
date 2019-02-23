@@ -21,7 +21,7 @@ apis.keys().map(key => {
     api[name] = apis(key).default;
 });
 
-export const boot = function () {
+export const boot = function (Vue) {
     // Boot
     window._ = require('lodash');
     window.Popper = require('popper.js').default;
