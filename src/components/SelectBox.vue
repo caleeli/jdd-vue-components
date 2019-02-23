@@ -20,7 +20,7 @@
             placeholder: String,
             data: {
                 type: Array,
-                default: [],
+                default: () => [],
             },
             value: null,
             filterBy: String,
