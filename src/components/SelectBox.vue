@@ -18,7 +18,10 @@
     export default {
         props: {
             placeholder: String,
-            data: Array,
+            data: {
+                type: Array,
+                default: [],
+            },
             value: null,
             filterBy: String,
             idField: String
