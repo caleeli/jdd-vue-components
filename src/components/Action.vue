@@ -15,8 +15,7 @@
         props: {
             action: {
                 type: Object,
-                default: {
-                },
+                default: () => {},
             },
         },
         methods: {
