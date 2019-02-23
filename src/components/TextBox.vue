@@ -73,6 +73,7 @@
 <style lang="scss" scoped>
     .text-box-wraper {
         position: relative;
+        width: 100%;
     }
     .output {
         position:absolute;
