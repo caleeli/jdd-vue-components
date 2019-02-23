@@ -138,6 +138,7 @@
 <style lang="scss" scoped>
     .select-owner {
         position:relative;
+        width: 100%;
     }
     .selected-option {
         position: absolute;
