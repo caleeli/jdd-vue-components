@@ -1,5 +1,7 @@
 <script>
+    import Component from '../mixins/Component';
     export default {
+        mixins: [Component],
         data: function() {
             return {
                 templateRender: null
@@ -42,6 +44,9 @@
         },
         updated() {
             this.$emit('updated', this);
-        }
+        },
+        mounted() {
+            this.mountJddEvent(this.$el);
+        },
     }
 </script>
