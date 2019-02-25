@@ -44,6 +44,9 @@
         },
         updated() {
             this.$emit('updated', this);
+            this.$nextTick(() => {
+                this.mountJddEvent(this.$el);
+            });
         },
         mounted() {
             this.mountJddEvent(this.$el);
