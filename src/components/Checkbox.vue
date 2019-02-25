@@ -1,5 +1,5 @@
 <template>
-    <input class="form-control" type="checkbox" v-model="innerValue" @input="change" />
+    <input class="form-control" type="checkbox" v-model="innerValue" @input="change" @click="jddClick" />
 </template>
 
 <script>
