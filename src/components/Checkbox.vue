@@ -1,11 +1,11 @@
 <template>
-    <input class="form-control" type="checkbox" v-model="innerValue" @input="change" @click="jddClick" />
+    <input class="form-control" type="checkbox" v-model="innerValue" @click="jddClick" />
 </template>
 
 <script>
     import Component from '../mixins/Component';
     export default {
-        mixins: [Component],
+        mixins: [Component],    
         props: {
             value: null,
         },
