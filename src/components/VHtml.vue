@@ -23,7 +23,7 @@
             template: {
                 immediate: true, // makes the watcher fire on first render, too.
                 handler() {
-                    var template = !this.template ? '<div>hola mundo</div>' : this.template;
+                    var template = !this.template ? '<div></div>' : this.template;
                     var res = Vue.compile(template);
                     this.templateRender = res.render;
                     // staticRenderFns belong into $options, 
