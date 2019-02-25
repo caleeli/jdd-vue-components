@@ -1,5 +1,5 @@
 <template>
-    <input class="form-control" type="upload" v-model="innerValue" @click="jddClick" />
+    <input class="form-control" type="file" v-model="innerValue" @click="jddClick" />
 </template>
 
 <script>
