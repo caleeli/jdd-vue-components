@@ -1,11 +1,12 @@
 <template>
     <div class="upload-region" @click="click">
         <slot></slot>
-        <div class="form-file-progress" v-bind:style="style">
+        <div class="form-file-progress">
             <input type="file"
                    v-on:change="changeFile($event, multiplefile)"
                    v-bind:multiple="multiplefile">
         </div>
+        <div class="form-file-progress-size" v-bind:style="style"></div>
     </div>
 </template>
 
@@ -19,9 +20,15 @@
                 default: "/api/uploadfile",
             },
         },
+        computed: {
+            style() {
+                return "left: " + this.progress + "%!important;"
+                        + "width: " + (100 - this.progress) + "%!important;";
+            },
+        },
         data() {
             return {
-                style: "background-size: 0% 100%!important"
+                progress: 0,
             };
         },
         methods: {
@@ -42,10 +49,10 @@
                     success: function(json) {
                         self.$emit('input', JSON.stringify(json));
                         self.$emit('change', json);
-                        self.style = "background-size: 0% 100%!important";
+                        this.progress = 0;
                     },
                     error: function(json) {
-                        self.style = "background-size: 0% 100%!important";
+                        this.progress = 0;
                     },
                     cache: false,
                     contentType: false,
@@ -53,8 +60,7 @@
                     chunking: true,
                     progress: function(data) {
                         if (data.lengthComputable) {
-                            var progress = parseInt(((data.loaded / data.total) * 100), 10);
-                            self.style = "background-size: " + progress + "% 100%!important";
+                            this.progress = parseInt(((data.loaded / data.total) * 100), 10);
                         }
                     }
                 });
@@ -73,7 +79,6 @@
         position: absolute;
         left: 0px;
         top: 0px;
-        background-image: require('../assets/upload.svg');
     }
     .form-file-progress input {
         width: 100%;
@@ -82,5 +87,13 @@
         left: 0px;
         top: 0px;
         opacity: 0;
+    }
+    .form-file-progress-size {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        background-color: rgba(0,0,0,0.5);
     }
 </style>
