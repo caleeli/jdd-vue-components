@@ -58,8 +58,7 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    chunking: true,
-                    progress: function(data) {
+                    uploadProgress: function(data) {
                         if (data.lengthComputable) {
                             self.progress = parseInt(((data.loaded / data.total) * 100), 10);
                         }
