@@ -50,7 +50,7 @@
                     success: function(json) {
                         self.$emit('input', JSON.stringify(json));
                         self.$emit('change', json);
-                        this.progress = 100;
+                        self.progress = 100;
                     },
                     error: function(json) {
                         this.progress = 100;
@@ -61,7 +61,7 @@
                     chunking: true,
                     progress: function(data) {
                         if (data.lengthComputable) {
-                            this.progress = parseInt(((data.loaded / data.total) * 100), 10);
+                            self.progress = parseInt(((data.loaded / data.total) * 100), 10);
                         }
                     }
                 });
