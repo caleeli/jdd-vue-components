@@ -1,28 +1,31 @@
 <template>
-    <input class="form-control" type="file" @click="jddClick" />
+    <upload :multiplefile="false" :value="value" @input="changed">
+        <button class="btn btn-secondary" @click="jddClick">
+            <i class="fas fa-upload"></i>
+        </button>
+    </upload>
 </template>
 
 <script>
     import Component from '../mixins/Component';
+    import Upload from './Upload';
     export default {
-        mixins: [Component],    
+        mixins: [Component],
+        components: {
+            Upload,
+        },
         props: {
             value: null,
         },
         methods: {
-        },
-        watch: {
-            innerValue() {
-                this.$emit('input', this.innerValue);
-            },
-            value() {
-                this.innerValue = this.value;
+            changed(event) {
+                this.$emit('input', event.value);
             }
         },
-        data() {
-            return {
-                innerValue: '',
-            };
-        }
+        computed: {
+            innerValue() {
+                return this.value;
+            },
+        },
     }
 </script>
