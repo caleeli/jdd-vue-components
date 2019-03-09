@@ -5,7 +5,6 @@ export default {
          */
         jddClick(event) {
             this.$emit('jdd-click', event, this);
-            event.stopPropagation();
         },
         mountJddEvent(element) {
             element.addEventListener('click', (event) => {
