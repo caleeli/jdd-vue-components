@@ -49,11 +49,13 @@
                     },
                     cache: false,
                     contentType: false,
-                    processData: false
-                }).uploadProgress(function(data) {
-                    if (data.lengthComputable) {
-                        var progress = parseInt(((data.loaded / data.total) * 100), 10);
-                        self.style = "background-size: " + progress + "% 100%!important";
+                    processData: false,
+                    chunking: true,
+                    progress: function(data) {
+                        if (data.lengthComputable) {
+                            var progress = parseInt(((data.loaded / data.total) * 100), 10);
+                            self.style = "background-size: " + progress + "% 100%!important";
+                        }
                     }
                 });
             },
