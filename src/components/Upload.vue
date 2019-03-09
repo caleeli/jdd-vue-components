@@ -72,7 +72,8 @@
         height: 100%;
         position: absolute;
         left: 0px;
-        top: 0px;            
+        top: 0px;
+        background-image: require('../assets/upload.svg');
     }
     .form-file-progress input {
         width: 100%;
