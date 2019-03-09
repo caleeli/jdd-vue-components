@@ -28,7 +28,7 @@
         },
         data() {
             return {
-                progress: 0,
+                progress: 100,
             };
         },
         methods: {
@@ -41,6 +41,7 @@
                 for (var i = 0, l = event.target.files.length; i < l; i++) {
                     data.append('file' + (multiple ? '[]' : ''), event.target.files[i]);
                 }
+                this.progress = 0;
                 $.ajax({
                     url: this.url,
                     type: 'POST',
@@ -49,10 +50,10 @@
                     success: function(json) {
                         self.$emit('input', JSON.stringify(json));
                         self.$emit('change', json);
-                        this.progress = 0;
+                        this.progress = 100;
                     },
                     error: function(json) {
-                        this.progress = 0;
+                        this.progress = 100;
                     },
                     cache: false,
                     contentType: false,
