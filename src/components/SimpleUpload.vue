@@ -1,7 +1,7 @@
 <template>
-    <upload :multiplefile="false" :value="value" @input="changed" @click="jddClick">
-        <button class="btn btn-secondary">
-            <i class="fas fa-upload"></i>
+    <upload :multiplefile="false" :url="url" :value="value" @input="changed" @click="jddClick">
+        <button class="btn btn-info w-100">
+            <i class="fas fa-upload"></i> {{label}}
         </button>
     </upload>
 </template>
@@ -16,6 +16,8 @@
         },
         props: {
             value: null,
+            url: String,
+            label: String,
         },
         methods: {
             changed(event) {
