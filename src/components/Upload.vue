@@ -1,5 +1,5 @@
 <template>
-    <div class="upload-region">
+    <div class="upload-region" @click="click">
         <slot></slot>
         <div class="form-file-progress" v-bind:style="style">
             <input type="file"
@@ -25,6 +25,9 @@
             };
         },
         methods: {
+            click(event) {
+                this.$emit('click', event);
+            },
             changeFile: function(event, multiple) {
                 var self = this;
                 var data = new FormData();

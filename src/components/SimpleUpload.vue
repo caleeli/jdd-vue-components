@@ -1,6 +1,6 @@
 <template>
-    <upload :multiplefile="false" :value="value" @input="changed">
-        <button class="btn btn-secondary" @click="jddClick">
+    <upload :multiplefile="false" :value="value" @input="changed" @click="jddClick">
+        <button class="btn btn-secondary">
             <i class="fas fa-upload"></i>
         </button>
     </upload>
@@ -20,7 +20,7 @@
         methods: {
             changed(event) {
                 this.$emit('input', event.value);
-            }
+            },
         },
         computed: {
             innerValue() {
