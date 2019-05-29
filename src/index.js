@@ -41,7 +41,10 @@ export const boot = function (Vue, $) {
 
 // Setup plugin install
 export default {
-    install: function (Vue, {jQuery}) {
+    install: function (Vue, {jQuery, prefix}) {
         boot(Vue, jQuery);
+        Object.keys(components).forEach((name) => {
+            Vue.component((prefix ? prefix + '-':'') + name, components[name]);
+        });
     }
 }
