@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import jQuery from 'jquery';
 import moment from 'moment';
 
 /**
@@ -22,7 +22,10 @@ apis.keys().map(key => {
     api[name] = apis(key).default;
 });
 
-export const boot = function (Vue) {
+export const boot = function (Vue, $) {
+    if ($ === undefined) {
+        $ = jQuery;
+    }
     // Boot
     window._ = require('lodash');
     window.Popper = require('popper.js').default;
@@ -34,4 +37,11 @@ export const boot = function (Vue) {
     moment.locale('es');
     window.Vue = Vue;
     Vue.config.productionTip = false;
+}
+
+// Setup plugin install
+export default {
+    install: function (Vue, {jQuery}) {
+        boot(Vue, jQuery);
+    }
 }
