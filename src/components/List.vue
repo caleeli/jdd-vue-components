@@ -1,19 +1,19 @@
 <template>
   <ul class="list-group">
     <template v-for="(item, index) in items(null)">
-      <li class="list-group-item level-1">
+      <li class="list-group-item list-group-item-action level-1">
         <slot :item="item" :control="status[index]"></slot>
       </li>
       <template v-if="status[index].status.open" v-for="item in items(item.id)">
-        <li class="list-group-item level-2">
+        <li class="list-group-item list-group-item-action level-2">
           <slot :item="item" :control="status[indexItem(item)]"></slot>
         </li>
         <template v-if="status[indexItem(item)].status.open" v-for="item in items(item.id)">
-          <li class="list-group-item level-3">
+          <li class="list-group-item list-group-item-action level-3">
             <slot :item="item" :control="status[indexItem(item)]"></slot>
           </li>
           <template v-if="status[indexItem(item)].status.open" v-for="item in items(item.id)">
-            <li class="list-group-item level-4">
+            <li class="list-group-item list-group-item-action level-4">
               <slot :item="item" :control="status[indexItem(item)]"></slot>
             </li>
           </template>
