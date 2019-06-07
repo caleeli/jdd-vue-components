@@ -1,9 +1,7 @@
 <template>
   <ul class="list-group">
     <template v-for="(item, index) in items(null)">
-      <li class="list-group-item list-group-item-action level-1">
-        <slot :item="item" :control="status[index]"></slot>
-      </li>
+      <slot :item="item" :control="status[index]" :class="'level-1'"></slot>
       <template v-if="status[index].status.open" v-for="item in items(item.id)">
         <li class="list-group-item list-group-item-action level-2">
           <slot :item="item" :control="status[indexItem(item)]"></slot>
