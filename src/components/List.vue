@@ -1,19 +1,21 @@
 <template>
   <ul class="list-group">
     <template v-for="(item, index) in items(null)">
-      <slot :item="item" :control="status[index]" :class="'level-1'"></slot>
-      <template v-if="status[index].status.open" v-for="item in items(item.id)">
-        <li class="list-group-item list-group-item-action level-2">
-          <slot :item="item" :control="status[indexItem(item)]"></slot>
-        </li>
-        <template v-if="status[indexItem(item)].status.open" v-for="item in items(item.id)">
-          <li class="list-group-item list-group-item-action level-3">
-            <slot :item="item" :control="status[indexItem(item)]"></slot>
-          </li>
-          <template v-if="status[indexItem(item)].status.open" v-for="item in items(item.id)">
-            <li class="list-group-item list-group-item-action level-4">
-              <slot :item="item" :control="status[indexItem(item)]"></slot>
-            </li>
+      <slot :item="item" :control="status[index]" :level="'level-1'"></slot>
+      <template v-if="status[index].status.open">
+        <template v-for="item in items(item.id)">
+          <slot :item="item" :control="status[indexItem(item)]" :level="'level-2'"></slot>
+          <template v-if="status[indexItem(item)].status.open">
+            <template v-if="status[indexItem(item)].status.open">
+              <template v-for="item in items(item.id)">
+                <slot :item="item" :control="status[indexItem(item)]" :level="'level-3'"></slot>
+                <template v-if="status[indexItem(item)].status.open">
+                  <template v-for="item in items(item.id)">
+                    <slot :item="item" :control="status[indexItem(item)]" :level="'level-4'"></slot>
+                  </template>
+                </template>
+              </template>
+            </template>
           </template>
         </template>
       </template>
