@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import {filterBy} from '../helpers/filter';
+
 const PAGE_SIZE = 7;
 export default {
     props: {
@@ -50,7 +52,7 @@ export default {
         },
         filteredValue () {
             const filters = this.filterBy ? this.filterBy.split(/[, ]+/) : [];
-            return this.value.filterBy(filters, this.search);
+            return filterBy(this.value, filters, this.search);
         },
         currentPage () {
             const filters = this.filterBy ? this.filterBy.split(/[, ]+/) : [];
