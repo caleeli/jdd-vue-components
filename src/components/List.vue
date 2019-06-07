@@ -2,7 +2,7 @@
   <ul class="list-group">
     <template v-for="item in items(null)">
       <slot :item="item" :control="status[indexItem(item)]" :level="'level-1'"></slot>
-      <template v-if="status[index].status.open">
+      <template v-if="status[indexItem(item)].status.open">
         <template v-for="item in items(item.id)">
           <slot :item="item" :control="status[indexItem(item)]" :level="'level-2'"></slot>
           <template v-if="status[indexItem(item)].status.open">
