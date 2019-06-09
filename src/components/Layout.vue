@@ -36,17 +36,18 @@ body {
 .borderlayout-middle {
   display: flex;
   flex: 1;
-  overflow: hidden;
 }
 
 .borderlayout-west {
   display: flex;
+  overflow: hidden;
 }
 
 .borderlayout-center {
   display: flex;
   flex-direction: column;
   flex: 1;
+  overflow: hidden;
 }
 
 .borderlayout-east {
