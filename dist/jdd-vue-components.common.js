@@ -70837,12 +70837,12 @@ module.exports = function (original) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"22550d4c-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Layout.vue?vue&type=template&id=349b3a8c&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"22550d4c-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Layout.vue?vue&type=template&id=6b754f3b&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"borderlayout"},[_c('div',{staticClass:"borderlayout-north"},[_vm._t("north")],2),_c('div',{staticClass:"borderlayout-middle"},[_c('div',{staticClass:"borderlayout-west"},[_vm._t("west")],2),_c('div',{staticClass:"borderlayout-center"},[_vm._t("default")],2),_c('div',{staticClass:"borderlayout-east"},[_vm._t("east")],2)]),_c('div',{staticClass:"borderlayout-south"},[_vm._t("south")],2)])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Layout.vue?vue&type=template&id=349b3a8c&
+// CONCATENATED MODULE: ./src/components/Layout.vue?vue&type=template&id=6b754f3b&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Layout.vue?vue&type=script&lang=js&
 //

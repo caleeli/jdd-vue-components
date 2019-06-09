@@ -36,6 +36,7 @@ body {
 .borderlayout-middle {
   display: flex;
   flex: 1;
+  overflow: hidden;
 }
 
 .borderlayout-west {
