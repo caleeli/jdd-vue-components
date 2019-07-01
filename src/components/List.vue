@@ -38,13 +38,17 @@ NodeControl.prototype.open = function() {
 };
 NodeControl.prototype.toggle = function(owner) {
   this.status.open = !this.status.open;
-  this.action(owner);
+  return {
+    hasAction: this.action(owner)
+  };
 };
 NodeControl.prototype.action = function(owner) {
   if (typeof this.item.action === "string") {
     const action = new Function(this.item.action).bind(owner);
     action();
+    return true;
   }
+  return false;
 };
 export default {
   props: {
