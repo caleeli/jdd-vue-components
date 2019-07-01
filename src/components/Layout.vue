@@ -1,19 +1,34 @@
 <template>
   <div class="borderlayout">
-    <div class="borderlayout-north"><slot name="north"></slot></div>
-    <div class="borderlayout-middle">
-      <div class="borderlayout-west"><slot name="west"></slot></div>
-      <div class="borderlayout-center"><slot></slot></div>
-      <div class="borderlayout-east"><slot name="east"></slot></div>
+    <div class="borderlayout-north">
+      <slot name="north"></slot>
     </div>
-    <div class="borderlayout-south"><slot name="south"></slot></div>
+    <div class="borderlayout-middle">
+      <div class="borderlayout-west" :class="{open: westOpen}">
+        <slot name="west"></slot>
+      </div>
+      <div class="borderlayout-center">
+        <slot></slot>
+      </div>
+      <div class="borderlayout-east">
+        <slot name="east"></slot>
+      </div>
+    </div>
+    <div class="borderlayout-south">
+      <slot name="south"></slot>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-  }
+  props: {
+    westOpen: {
+      type: Boolean,
+      default: true
+    }
+  },
+  mounted() {}
 };
 </script>
 
@@ -58,8 +73,14 @@ body {
 }
 
 @media only screen and (max-device-width: 812px) {
+  .borderlayout-middle {
+    flex-direction: column;
+  }
   .borderlayout-west {
     display: none;
+  }
+  .borderlayout-west.open {
+    display: block;
   }
   .borderlayout-east {
     display: none;
