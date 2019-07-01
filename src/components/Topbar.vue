@@ -1,19 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <slot name="logo"></slot>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="navbar-right">
       <ul class="navbar-nav mr-auto">
         <template v-for="menu in menus(0)">
           <li v-if="menu.route==='#'" class="nav-item dropdown">
@@ -67,3 +56,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.navbar-right {
+  display: flex;
+  flex-grow: 1;
+}
+</style>
