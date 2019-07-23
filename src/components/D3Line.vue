@@ -6,7 +6,7 @@
     const data = [99, 71, 78, 25, 36, 92];
     export default {
         mounted() {
-            const $el = $(this.$el);
+            //const $el = window.$(this.$el);
             const width = this.$el.offsetWidth, height = this.$el.offsetHeight;
             const svg = d3.select(this.$el)
                     .append('svg')

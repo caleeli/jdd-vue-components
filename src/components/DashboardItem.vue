@@ -35,8 +35,7 @@
         },
         methods: {
             click(event) {
-                const isDropdown = $(event.target).hasClass('dropdown') || $(event.target.parentNode).hasClass('dropdown');
-                console.log(event.target, isDropdown);
+                const isDropdown = window.$(event.target).hasClass('dropdown') || window.$(event.target.parentNode).hasClass('dropdown');
                 !isDropdown && this.value.href ? this.$router.push(this.value.href) : null;
             }
         },

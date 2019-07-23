@@ -32,7 +32,7 @@
             }
         },
         methods: {
-            draw: function(event) {
+            draw: function() {
 
 
                 // requestAnimationFrame(this.draw);
@@ -61,7 +61,7 @@
 
 
             },
-            handleMouseUp: function(event) {
+            handleMouseUp: function() {
                 this.mouse.down = false;
             },
             handleMouseMove: function(event) {

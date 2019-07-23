@@ -8,7 +8,7 @@
                 @focus="focus" @blur="blur" @click="click"
                 v-model="text">
         <ul class="dropdown-menu select-list">
-            <li v-for="(row, index) in dataFiltered" v-bind:value="getKey(row)" v-if="index<5" class="dropdown-item" @click="select(row)">
+            <li v-for="(row, index) in dataFiltered.slice(0, 5)" :key="index" v-bind:value="getKey(row)" class="dropdown-item" @click="select(row)">
             <slot :row="row" :format="format"></slot>
             </li>
         </ul>
@@ -66,7 +66,7 @@
                 return Object.evaluateRef(row, this.idField ? this.idField : 'id');
             },
             textValue(value) {
-                return $('<i></i>').text(value).html();
+                return window.$('<i></i>').text(value).html();
             },
             format(input) {
                 let value = this.textValue(input);
@@ -101,12 +101,12 @@
                 }
             },
             isOpen() {
-                return $(this.$el).find("ul:first").is(':visible');
+                return window.$(this.$el).find("ul:first").is(':visible');
             },
             click() {
                 setTimeout(() => {
                     if (!this.isOpen()) {
-                        $(this.$el).find(".dropdown-menu").toggle();
+                        window.$(this.$el).find(".dropdown-menu").toggle();
                     }
                 }, 100);
             },
@@ -114,7 +114,7 @@
                 this.inputFocus = true;
                 setTimeout(() => {
                     if (!this.isOpen()) {
-                        $(this.$el).find(".dropdown-menu").toggle();
+                        window.$(this.$el).find(".dropdown-menu").toggle();
                     }
                 }, 100);
             },
@@ -122,14 +122,14 @@
                 this.inputFocus = false;
                 setTimeout(() => {
                     if (this.isOpen()) {
-                        $(this.$el).find(".dropdown-menu").toggle();
+                        window.$(this.$el).find(".dropdown-menu").toggle();
                     }
                 }, 500);
             },
             select(row) {
                 this.$emit('input', this.getKey(row));
                 this.$emit('change', row);
-                $(this.$el).find(".selected-option").focus();
+                window.$(this.$el).find(".selected-option").focus();
             }
         },
         mounted() {

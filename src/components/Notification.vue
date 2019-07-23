@@ -5,7 +5,7 @@
       <span class="badge notification-count" v-bind:class="countClass" v-show="notifications.length">{{notifications.length}}</span>
     </a>
     <ul class="dropdown-menu notification">
-      <li v-for="notificacion in notifications">
+      <li v-for="(notificacion, i) in notifications" :key="i">
         <a v-bind:href="notificacion.href" class="dropdown-item">
           <div>
             <i v-bind:class="notificacion.icono"></i> {{notificacion.texto}}

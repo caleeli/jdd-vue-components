@@ -5,7 +5,7 @@
     <div class="navbar-right">
       <ul class="navbar-nav mr-auto">
         <template v-for="menu in menus(0)">
-          <li v-if="menu.route==='#'" class="nav-item dropdown">
+          <li v-if="menu.route==='#'" class="nav-item dropdown" :key="menu.id">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -23,7 +23,7 @@
               >{{submenu.name}}</router-link>
             </div>
           </li>
-          <li v-else class="nav-item">
+          <li v-else class="nav-item" :key="menu.id">
             <router-link class="nav-link" :to="menu.route">{{menu.name}}</router-link>
           </li>
         </template>

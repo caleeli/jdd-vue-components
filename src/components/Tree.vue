@@ -3,16 +3,16 @@
     <thead>
       <tr v-if="header.length">
         <th v-bind:colspan="2"></th>
-        <th v-for="(column, j) in header" v-bind:colspan="j == textColumnD ? (maxLevel - 1 + 1) : 1"><vnode 
+        <th v-for="(column, j) in header" :key="j" v-bind:colspan="j == textColumnD ? (maxLevel - 1 + 1) : 1"><vnode 
         v-bind:tpl="column"
         v-bind:data="options"
         ></vnode></th>
     </tr>
     </thead>
     <tbody>
-      <tr v-for="(row, i) in flatTree" v-if="checkVif(row)" v-bind:class="rowClass(row)">
+      <tr v-for="(row, i) in vifFlatTree" :key="i" v-bind:class="rowClass(row)">
         <td v-bind:colspan="row.$level + 1"></td>
-        <td v-for="(column, j) in columns" v-bind:colspan="j == textColumnD ? (maxLevel - row.$level + 1) : 1">
+        <td v-for="(column, j) in columns" :key="j" v-bind:colspan="j == textColumnD ? (maxLevel - row.$level + 1) : 1">
     <vnode 
         v-bind:class="{'tree-open': !flatTree[row.$parent].$collapsed, 'tree-closed': flatTree[row.$parent].$collapsed}"
         v-bind:tpl="column"
@@ -50,27 +50,32 @@
       },
       watch: {
           tree: {
-              handler(val) {
+              handler() {
                   this.flatTree.splice(0);
                   this.flat(this.tree, 0, this.flatTree);
               },
               deep: true
-          }
+          },
+          vifFlatTree() {
+              return this.flatTree.filter(this.checkVif);
+          },
       },
       methods: {
           checkVif(row){
+              row;
               return eval(this.vif);
           },
           rowClass(row){
+              row;
               return this.sClass + ' ' + eval(this.vClass);
           },
           flat(tree, level = 0, flat = [], parent = 0) {
               let row = tree;
               let index = flat.length;
-              Vue.set(row, '$level', level);
-              Vue.set(row, '$parent', parent);
+              window.Vue.set(row, '$level', level);
+              window.Vue.set(row, '$parent', parent);
               if (row.$collapsed === undefined) {
-                  Vue.set(row, '$collapsed', false);
+                  window.Vue.set(row, '$collapsed', false);
               }
               this.maxLevel = Math.max(this.maxLevel, level);
               flat.push(row);
@@ -86,7 +91,12 @@
               this.flatTree.splice(0);
               this.flat(this.tree, 0, this.flatTree);
           },
-          click(action, node, row){
+          /**
+           * @param action
+           * @param node
+           * @param row
+           */
+          click(){
           }
       },
       created() {
@@ -100,7 +110,7 @@
                   this.sClass = node.data && node.data.staticClass ? node.data.staticClass : this.sClass;
                   node.children.forEach(function (node) {
                       if (node.tag) {
-                          columns.push(node2string(node));
+                          columns.push(window.node2string(node));
                       }
                   });
                   break;
@@ -109,7 +119,7 @@
           if (this.$slots.header) {
               this.$slots.header.forEach(function (node) {
                   if (node.tag) {
-                      header.push(node2string(node));
+                      header.push(window.node2string(node));
                   }
               });
           }

@@ -1,9 +1,9 @@
 <template>
     <div class="content" style="padding:5em 1em 1em 1em; width: 100vw; overflow: auto;">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-12 text-center" v-for="item in links">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-12 text-center" v-for="(item, j) in links" :key="j">
                 <dashboard-item :value="item">
-                    <li v-for="link in item.links">
+                    <li v-for="(link, i) in item.links" :key="i">
                     <router-link v-if="link.href" :to="link.href">
                         <img class="access-link" :src="link.icon">
                         {{link.text}}
@@ -35,13 +35,13 @@
                 this[macro.macro](params);
             },
             completeTask(params) {
-                Process.completeTask(params);
+                window.Process.completeTask(params);
             },
             currentItems(query) {
-                if (query.item !== undefined && links[query.item] && links[query.item].links instanceof Array) {
-                    return links[query.item].links;
+                if (query.item !== undefined && this.links[query.item] && this.links[query.item].links instanceof Array) {
+                    return this.links[query.item].links;
                 }
-                return links;
+                return this.links;
             },
         },
     };

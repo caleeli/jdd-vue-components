@@ -4,7 +4,7 @@
             <div class="jdd-comment-actions float-right">
                 <slot></slot>
             </div>
-            <button v-for="comment in value" 
+            <button v-for="(comment, i) in value" :key="i"
                     class="btn btn-outline-secondary btn-sm jdd-comment-header-text"
                     @click="openComment(comment)">{{comment.header}}</button>
             <div class="jdd-comment-body">

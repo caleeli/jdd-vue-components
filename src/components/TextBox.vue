@@ -18,7 +18,7 @@
         },
         methods: {
             select(row) {
-                const textarea = $(this.$el).find('textarea')[0];
+                const textarea = window.$(this.$el).find('textarea')[0];
                 if (textarea) {
                     textarea.setRangeText(
                             this.reference(row),
@@ -32,14 +32,14 @@
                 }
             },
             update() {
-                const c = this.preSelection;
-                const output = $(this.$el).find('.output')[0];
-                const input = $(this.$el).find('.input')[0];
+                //const c = this.preSelection;
+                const output = window.$(this.$el).find('.output')[0];
+                const input = window.$(this.$el).find('.input')[0];
                 if (!output || !input) {
                     return "";
                 }
-                const a = this.updated;
-                const textarea = $(this.$el).find('textarea')[0];
+                //const a = this.updated;
+                const textarea = window.$(this.$el).find('textarea')[0];
                 const selectionStart = textarea ? textarea.selectionStart : 0;
                 const text = this.text.substr(0, selectionStart);
                 output.firstChild.innerHTML = text + ".";

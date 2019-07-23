@@ -16,7 +16,7 @@
         <div class="col-sm-12">
           <table v-if="mode==='list'" width="100%" class="table table-striped table-hover">
             <tbody>
-              <tr v-if="mode==='list'" v-for="file in listOfFiles">
+              <tr v-for="(file, i) in listOfFiles" :key="i">
                 <td>
                   <i v-bind:class="icon(file).icon" v-bind:style="{color:icon(file).color}"></i>
                   <a v-bind:href="file.attributes.url" target='_blank'>{{file.attributes.name}}</a>
@@ -30,7 +30,7 @@
               </tr>
             </tbody>
           </table>
-          <div v-else v-for="file in listOfFiles" class="file-box">
+          <div v-else v-for="(file, i) in listOfFiles" :key="i" class="file-box">
             <div class="file">
               <a href="javascript:void(0)">
                 <span class="corner"></span>
@@ -69,7 +69,7 @@
       },
       computed: {
           data() {
-              return new ApiArray(this.api);
+              return new window.ApiArray(this.api);
           }
       },
       props: {
@@ -83,7 +83,7 @@
           "refresh": null,
       },
       watch: {
-          'upload': function(value) {
+          'upload': function() {
               var self = this;
               self.loadFiles()
           },
@@ -118,7 +118,7 @@
           return;
               var filter = self.filter;
               self.pendingAjax = true;
-              $.ajax({
+              window.$.ajax({
                   'url': self.api,
                   'method': 'GET',
                   'dataType': 'json',
@@ -150,14 +150,14 @@
           deleteFile: function(file) {
               var self = this;
               if (confirm('¿Desea eliminar el archivo ' + file.attributes.name + '?')) {
-                  $.ajax({
+                  window.$.ajax({
                       //Obtiene la direccion solo hasta el {storage}
                       // /api/folder/{storage}/{...}
                       'url': (self.api.split('/').length > 4 ? self.api.split('/').slice(0, 4).join('/') : self.api)
                               + '/' + file.id,
                       'method': 'DELETE',
                       'dataType': 'json',
-                      'success': function(data) {
+                      'success': function() {
                           self.loadFiles();
                       }
                   });
@@ -171,7 +171,6 @@
                       color = 'rgb(226, 31, 52)';
                       type = 'pdf';
                       break;
-                  case 'application/msword':
                   case 'application/msword':
                   case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
                   case 'application/vnd.openxmlformats-officedocument.wordprocessingml.template':

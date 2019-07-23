@@ -21,7 +21,7 @@
 </template>
 <script>
     import moment from 'moment';
-    import datepicker from 'bootstrap-datepicker';
+    require('bootstrap-datepicker');
 
     export default {
         props: {
@@ -55,14 +55,14 @@
             var self = this;
             if (self.value) {
                 var date = moment(self.value);
-                $(this.$el).find('.calendar-button input').val(date.format('YYYY-MM-DD'));
-                $(this.$el).find('.clock-button input').val(date.format('HH:SS'));
+                window.$(this.$el).find('.calendar-button input').val(date.format('YYYY-MM-DD'));
+                window.$(this.$el).find('.clock-button input').val(date.format('HH:SS'));
             } else {
-                $(this.$el).find('.calendar-button input').val('');
-                $(this.$el).find('.clock-button input').val('');
+                window.$(this.$el).find('.calendar-button input').val('');
+                window.$(this.$el).find('.clock-button input').val('');
             }
             this.$nextTick(() => {
-                $(this.$el).find('.calendar-button').datepicker({
+                window.$(this.$el).find('.calendar-button').datepicker({
                     autoclose: true,
                     format: 'yyyy-mm-dd',
                     language: 'es',
@@ -77,7 +77,7 @@
                     }
                     self.$emit('input', moment(e.date).format());
                 });
-                $(this.$el).find('.clock-button').clockpicker({
+                window.$(this.$el).find('.clock-button').clockpicker({
                     autoclose: true,
                     afterDone: () => {
                         const time = self.getTime();
@@ -90,7 +90,7 @@
         },
         methods: {
             getTime() {
-                const t = $(this.$el).find('.clock-button input')[0].value.split(':');
+                const t = window.$(this.$el).find('.clock-button input')[0].value.split(':');
                 const now = new Date();
                 return t.length === 2 ? {hour: t[0] * 1, minute: t[1] * 1} : {hour: now.getHours(), minute: now.getMinutes()};
             },

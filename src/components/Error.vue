@@ -3,7 +3,7 @@
         <div v-if="property==='message' && value.message" class="alert alert-danger">
             {{value.message}}
         </div>
-        <small v-else class="badge badge-danger" v-for="error in errors">
+        <small v-else class="badge badge-danger" v-for="(error, i) in errors" :key="i">
             {{error}}
         </small>
     </span>
@@ -17,7 +17,7 @@
         },
         computed: {
             errors() {
-                const errors = _.get(this.value, this.property);
+                const errors = window._.get(this.value, this.property);
                 return errors ? (errors instanceof Array ? errors : [errors]) : [];
             }
         }

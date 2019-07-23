@@ -45,6 +45,7 @@ function ApiStorage(url, object) {
             var string = window.localStorage[url];
             string ? item.listenStorage(JSON.parse(string)) : null;
         } catch (e) {
+            e;
         }
     }
     this.unregister = function(item) {

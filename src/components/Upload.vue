@@ -42,7 +42,7 @@
                     data.append('file' + (multiple ? '[]' : ''), event.target.files[i]);
                 }
                 this.progress = 0;
-                $.ajax({
+                window.$.ajax({
                     url: this.url,
                     type: 'POST',
                     data: data,
@@ -52,7 +52,7 @@
                         self.$emit('change', json);
                         self.progress = 100;
                     },
-                    error: function(json) {
+                    error: function() {
                         this.progress = 100;
                     },
                     cache: false,
