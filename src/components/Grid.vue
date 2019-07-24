@@ -146,4 +146,9 @@ export default {
   display: block;
   overflow: auto;
 }
+.grid-header {
+  border-color: #dee2e6;
+  border-bottom-style: solid!important;
+  border-bottom-width: 2px!important;
+}
 </style>

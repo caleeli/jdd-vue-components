@@ -3,14 +3,15 @@
         <center><img alt="Vue logo" src="./assets/icon/icon_83.5@2x.png"></center>
         <error v-model="errors" property="message"></error>
         <datetime v-model="datetime" type="datetime"></datetime>
+        <br>
         <grid v-model="grid">
             <template slot="header">
-                <row :widths="[50,350,200,150,150]" class="font-weight-bold bg-primary text-white">
-                    <div slot="c1">A</div>
-                    <div slot="c2">Column B</div>
-                    <div slot="c3">Column C</div>
-                    <div slot="c4">Column D</div>
-                    <div slot="c5">Column E</div>
+                <row :widths="[50,350,200,150,150]" class="grid-header text-uppercase">
+                    <p slot="c1">A</p>
+                    <p slot="c2">Column B</p>
+                    <p slot="c3">Column C</p>
+                    <p slot="c4">Column D</p>
+                    <p slot="c5">Column E</p>
                 </row>
             </template>
             <template slot-scope="{ row }">
@@ -38,6 +39,7 @@
                 grid: [
                     {a:'Abc',b:'Definition',c:'Clei',d:'Alex',e:'Luthor'},
                     {a:'Def',b:'Action',c:'Axon',d:'Martin',e:'King'},
+                    {a:'A',b:'Column B',c:'Column C',d:'Column D',e:'Column E'},
                 ],
                 errors: {message:'Hello error'},
                 datetime: null,
