@@ -12,9 +12,7 @@
       </div>
     </div>
     <div class="card-body panel-body" v-show="!collapsed" style="overflow: auto">
-        <div>
-            <slot></slot>
-        </div>
+        <slot></slot>
     </div>
   </div>
 </template>

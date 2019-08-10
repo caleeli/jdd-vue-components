@@ -1,14 +1,18 @@
 <template>
-    <div class="select-owner" @click="jddClick">
-        <div v-if="selected && !inputFocus" class="selected-option"><slot :row="selected" :format="textValue"></slot></div>
+    <div class="dropdown">
+        <!-- Muestra el contenido definido en el slot cuando se tiene un valor seleccionado de la lista -->
+        <div v-if="!multiple && selected && !inputFocus" class="selected-option"><slot :row="selected" :format="textValue" :remove="remove"></slot></div>
+        <div v-if="multiple && selected && !inputFocus" class="selected-option"><slot v-for="(row,i) in selected" :row="row" :format="textValue" :remove="remove"></slot></div>
+        <!-- Muestra el valor textual cuando no se seleccion un valor de la lista de opciones -->
         <div v-if="!(selected && !inputFocus) && !inputFocus" class="selected-option">{{value}}</div>
+        <i class="fa fa-times select-box-clear text-muted" @click="clear"></i>
         <input  class="form-control selected-input dropdown-toggle" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false"
-                :placeholder="placeholder"
+                :placeholder="value ? '' : placeholder"
                 @focus="focus" @blur="blur" @click="click"
                 v-model="text">
         <ul class="dropdown-menu select-list">
-            <li v-for="(row, index) in dataFiltered.slice(0, 5)" :key="index" v-bind:value="getKey(row)" class="dropdown-item" @click="select(row)">
+            <li v-for="(row, index) in dataFiltered" v-bind:value="getKey(row)" v-if="index<5" class="dropdown-item" @click="select(row)">
             <slot :row="row" :format="format"></slot>
             </li>
         </ul>
@@ -16,18 +20,21 @@
 </template>
 
 <script>
-    import Component from '../mixins/Component';
+    const SEP = ',';
     export default {
-        mixins: [Component],
         props: {
             placeholder: String,
-            data: {
-                type: Array,
-                default: () => [],
-            },
+            data: Array,
             value: null,
             filterBy: String,
-            idField: String
+            idField: {
+                type: String,
+                default: 'id'
+            },
+            multiple: {
+                type: Boolean,
+                default: false,
+            },
         },
         data() {
             return {
@@ -44,10 +51,20 @@
                 return this.inputFocus ? text : value;
             },
             selected() {
-                let value = this.value;
-                return this.data.find(item => {
-                    return value == this.getKey(item);
-                });
+                let value = this.multiple ? this.value ? this.value.split(SEP) : [] : this.value;
+                if (this.multiple) {
+                    const selected = [];
+                    value.forEach(id => {
+                        selected.push(this.data.find(item => {
+                            return id === String(this.getKey(item));
+                        }));
+                    });
+                    return selected;
+                } else {
+                    return this.data.find(item => {
+                        return value === String(this.getKey(item));
+                    });
+                }
             }
         },
         watch: {
@@ -59,6 +76,22 @@
             }
         },
         methods: {
+            clear() {
+                this.$emit('input', this.multiple ? [] : '');
+                this.$emit('change', null);
+            },
+            /**
+             * Remove a selected item
+             * @returns this
+             */
+            remove(item) {
+                const value = this.value ? this.value.split(SEP) : [];
+                const selected = String(this.getKey(item));
+                const index = value.indexOf(selected);
+                index !== -1 ? value.splice(index, 1) : null;
+                this.$emit('input', value.join(SEP));
+                this.$emit('change', this.selected);
+            },
             updateText(event) {
                 this.text = event.target.value;
             },
@@ -66,7 +99,7 @@
                 return Object.evaluateRef(row, this.idField ? this.idField : 'id');
             },
             textValue(value) {
-                return window.$('<i></i>').text(value).html();
+                return $('<i></i>').text(value).html();
             },
             format(input) {
                 let value = this.textValue(input);
@@ -101,12 +134,12 @@
                 }
             },
             isOpen() {
-                return window.$(this.$el).find("ul:first").is(':visible');
+                return $(this.$el).find("ul:first").is(':visible');
             },
             click() {
                 setTimeout(() => {
                     if (!this.isOpen()) {
-                        window.$(this.$el).find(".dropdown-menu").toggle();
+                        $(this.$el).find(".dropdown-menu").toggle();
                     }
                 }, 100);
             },
@@ -114,7 +147,7 @@
                 this.inputFocus = true;
                 setTimeout(() => {
                     if (!this.isOpen()) {
-                        window.$(this.$el).find(".dropdown-menu").toggle();
+                        $(this.$el).find(".dropdown-menu").toggle();
                     }
                 }, 100);
             },
@@ -122,14 +155,22 @@
                 this.inputFocus = false;
                 setTimeout(() => {
                     if (this.isOpen()) {
-                        window.$(this.$el).find(".dropdown-menu").toggle();
+                        $(this.$el).find(".dropdown-menu").toggle();
                     }
                 }, 500);
             },
             select(row) {
-                this.$emit('input', this.getKey(row));
-                this.$emit('change', row);
-                window.$(this.$el).find(".selected-option").focus();
+                if (this.multiple) {
+                    const value = this.value ? this.value.split(SEP) : [];
+                    const selected = String(this.getKey(row));
+                    value.indexOf(selected) === -1 ? value.push(selected) : null;
+                    this.$emit('input', value.join(SEP));
+                    this.$emit('change', this.selected);
+                } else {
+                    this.$emit('input', String(this.getKey(row)));
+                    this.$emit('change', row);
+                }
+                $(this.$el).find(".selected-option").focus();
             }
         },
         mounted() {
@@ -141,7 +182,6 @@
 <style lang="scss" scoped>
     .select-owner {
         position:relative;
-        width: 100%;
     }
     .selected-option {
         position: absolute;
@@ -165,5 +205,10 @@
     }
     .select-list .dropdown-item {
         font-weight: normal;
+    }
+    .select-box-clear {
+        position: absolute;
+        margin-top: 1em;
+        right: 1em;
     }
 </style>
