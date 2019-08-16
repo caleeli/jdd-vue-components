@@ -1,5 +1,7 @@
 import jQuery from 'jquery';
 import moment from 'moment';
+// localeIndexOf find multilanguage strings
+String.prototype.localeIndexOf = require('locale-index-of').prototypeLocaleIndexOf(Intl);
 
 /**
  * COMPONENTES

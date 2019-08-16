@@ -2146,6 +2146,7 @@ var map = {
 	"./Row.vue": "797f",
 	"./SelectBox.vue": "5f84",
 	"./SimpleUpload.vue": "31dd",
+	"./Suggest.vue": "a0b9",
 	"./Tags.vue": "3855",
 	"./TextBox.vue": "cef7",
 	"./TextInput.vue": "446e",
@@ -62538,6 +62539,268 @@ module.exports = !__webpack_require__("79e5")(function () {
 
 /***/ }),
 
+/***/ "a0b9":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"22550d4c-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Suggest.vue?vue&type=template&id=15d3c91f&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"select-owner"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.text),expression:"text"}],staticClass:"form-control selected-input dropdown-toggle",attrs:{"data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"},domProps:{"value":(_vm.text)},on:{"focus":_vm.focus,"blur":_vm.blur,"click":_vm.click,"input":function($event){if($event.target.composing){ return; }_vm.text=$event.target.value}}}),_c('ul',{staticClass:"dropdown-menu select-list"},_vm._l((_vm.dataFilteredSmall),function(row,index){return _c('li',{key:index,staticClass:"dropdown-item",attrs:{"value":_vm.getKey(row)},on:{"click":function($event){_vm.select(row)}}},[_vm._t("default",null,{row:row,format:_vm.format})],2)}),0)])}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/Suggest.vue?vue&type=template&id=15d3c91f&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.find.js
+var es6_array_find = __webpack_require__("7514");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom.iterable.js
+var web_dom_iterable = __webpack_require__("ac6a");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.split.js
+var es6_regexp_split = __webpack_require__("28a5");
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Suggest.vue?vue&type=script&lang=js&
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var SEP = ",";
+/* harmony default export */ var Suggestvue_type_script_lang_js_ = ({
+  props: {
+    placeholder: String,
+    data: Array,
+    value: null,
+    filterBy: String,
+    idField: String,
+    multiple: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      localValue: null,
+      text: "",
+      dataFiltered: [],
+      inputFocus: false
+    };
+  },
+  computed: {
+    dataFilteredSmall: function dataFilteredSmall() {
+      return this.dataFiltered.slice(0, 5);
+    },
+    textShown: function textShown() {
+      var text = this.text;
+      var value = this.value;
+      return this.inputFocus ? text : value;
+    },
+    selected: function selected() {
+      var _this = this;
+
+      var value = this.multiple ? this.value ? this.value.split(SEP) : [] : this.value;
+
+      if (this.multiple) {
+        var selected = [];
+        value.forEach(function (id) {
+          selected.push(_this.data.find(function (item) {
+            return id === String(_this.getKey(item));
+          }));
+        });
+        return selected;
+      } else {
+        return this.data.find(function (item) {
+          return value === String(_this.getKey(item));
+        });
+      }
+    }
+  },
+  watch: {
+    data: function data() {
+      this.filter();
+    },
+    text: function text(value) {
+      this.$emit("input", value);
+      this.filter();
+    }
+  },
+  methods: {
+    /**
+     * Remove a selected item
+     * @returns this
+     */
+    remove: function remove(item) {
+      var value = this.value ? this.value.split(SEP) : [];
+      var selected = String(this.getKey(item));
+      var index = value.indexOf(selected);
+      index !== -1 ? value.splice(index, 1) : null;
+      this.$emit("input", value.join(SEP));
+      this.$emit("change", this.selected);
+    },
+    updateText: function updateText(event) {
+      this.text = event.target.value;
+    },
+    getKey: function getKey(row) {
+      return Object.evaluateRef(row, this.idField ? this.idField : "id");
+    },
+    textValue: function textValue(value) {
+      return $("<i></i>").text(value).html();
+    },
+    format: function format(input) {
+      var value = this.textValue(input);
+
+      if (!this.text) {
+        return value;
+      }
+
+      var text = this.text;
+      var length = text.length;
+      var res = "";
+      var u = -1;
+      var i;
+
+      while ((i = value.toLowerCase().localeIndexOf(text, "en", {
+        sensitivity: "base"
+      })) > -1) {
+        res += value.substr(0, i);
+        res += "<code>";
+        res += value.substr(i, length);
+        res += "</code>";
+        u = i + length;
+        value = value.substr(u);
+      }
+
+      res += value;
+      return res;
+    },
+    filter: function filter() {
+      var _this2 = this;
+
+      var filterBy = this.filterBy ? this.filterBy.trim() : "";
+      var filters = filterBy ? filterBy.split(/[, ]+/) : [];
+      var dataFiltered = this.data.filterBy(filters, this.text, function (item, value) {
+        return _this2.textValue(item).localeIndexOf(value, "en", {
+          sensitivity: "base"
+        }) > -1;
+      });
+      this.dataFiltered.splice(0);
+
+      for (var i = 0, l = dataFiltered.length; i < l; i++) {
+        this.dataFiltered.push(dataFiltered[i]);
+      }
+    },
+    isOpen: function isOpen() {
+      return $(this.$el).find("ul:first").is(":visible");
+    },
+    click: function click() {
+      var _this3 = this;
+
+      setTimeout(function () {
+        if (!_this3.isOpen()) {
+          $(_this3.$el).find(".dropdown-menu").toggle();
+        }
+      }, 100);
+    },
+    focus: function focus() {
+      var _this4 = this;
+
+      this.inputFocus = true;
+      setTimeout(function () {
+        if (!_this4.isOpen()) {
+          $(_this4.$el).find(".dropdown-menu").toggle();
+        }
+      }, 100);
+    },
+    blur: function blur() {
+      var _this5 = this;
+
+      this.inputFocus = false;
+      setTimeout(function () {
+        if (_this5.isOpen()) {
+          $(_this5.$el).find(".dropdown-menu").toggle();
+        }
+      }, 500);
+    },
+    select: function select(row) {
+      if (this.multiple) {
+        var value = this.value ? this.value.split(SEP) : [];
+        var selected = String(this.getKey(row));
+        value.indexOf(selected) === -1 ? value.push(selected) : null;
+        this.text = value.join(SEP);
+        this.$emit("input", value.join(SEP));
+        this.$emit("change", this.selected);
+      } else {
+        this.text = String(this.getKey(row));
+        this.$emit("input", String(this.getKey(row)));
+        this.$emit("change", row);
+      }
+
+      $(this.$el).find(".selected-option").focus();
+    }
+  },
+  mounted: function mounted() {
+    this.filter();
+  }
+});
+// CONCATENATED MODULE: ./src/components/Suggest.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_Suggestvue_type_script_lang_js_ = (Suggestvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/Suggest.vue?vue&type=style&index=0&id=15d3c91f&lang=scss&scoped=true&
+var Suggestvue_type_style_index_0_id_15d3c91f_lang_scss_scoped_true_ = __webpack_require__("a75f");
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__("2877");
+
+// CONCATENATED MODULE: ./src/components/Suggest.vue
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_Suggestvue_type_script_lang_js_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "15d3c91f",
+  null
+  
+)
+
+component.options.__file = "Suggest.vue"
+/* harmony default export */ var Suggest = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ "a159":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63470,6 +63733,17 @@ module.exports = __webpack_require__("f410");
 
 /***/ }),
 
+/***/ "a75f":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggest_vue_vue_type_style_index_0_id_15d3c91f_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("c512");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggest_vue_vue_type_style_index_0_id_15d3c91f_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggest_vue_vue_type_style_index_0_id_15d3c91f_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_index_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suggest_vue_vue_type_style_index_0_id_15d3c91f_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "a7fa":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63656,6 +63930,132 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
     if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
   }
 }
+
+
+/***/ }),
+
+/***/ "acdd":
+/***/ (function(module, exports) {
+
+function exported(Intl) {
+  return function localeIndexOf(string, substring, localesOrCollator, options) {
+    return exported.functional(Intl, string, substring, localesOrCollator, options);
+  };
+}
+
+exported.prototypeLocaleIndexOf = function(Intl) {
+  return function prototypeLocaleIndexOf(substring, localesOrCollator, options) {
+    return exported.functional(Intl, this, substring, localesOrCollator, options);
+  };
+};
+
+exported.prollyfill = function() {
+  String.prototype.localeIndexOf = (typeof Intl !== 'undefined') ?
+    exported.prototypeLocaleIndexOf(Intl) :
+    String.prototype.indexOf;
+};
+
+exported.functional = function(Intl, string, substring, localesOrCollator, options) {
+  var collator = exported.getCollator(Intl, localesOrCollator, options);
+
+  var resolvedOptions = collator.resolvedOptions();
+  if (resolvedOptions.ignorePunctuation === false) {
+    return exported.indexOf(collator, string, substring);
+  }
+
+  var punctuationCollator = new Intl.Collator(resolvedOptions.locale, { ignorePunctuation: true });
+  return exported.noPunctuationIndexOf(collator, string, substring, punctuationCollator);
+};
+
+exported.indexOf = function(collator, string, substring) {
+  var stringLength = string.length;
+  var substringLength = substring.length;
+
+  for (var index = 0; index <= stringLength - substringLength; index += 1) {
+    var potentialMatch = string.substring(index, index + substringLength);
+    if (collator.compare(potentialMatch, substring) === 0) {
+      return index;
+    }
+  }
+  return -1;
+};
+
+exported.noPunctuationIndexOf = function(collator, string, substring, punctuationCollator) {
+  var stringLength = string.length;
+  var substringLength = substring.length;
+
+  // a cache for string characters punctuation values
+  var characterIsConsidered = new Array(stringLength);
+  function isConsidered(character) {
+    return (punctuationCollator.compare('', character) === 0) ? 0 : 1;
+  }
+  function updateConsideredCharacterAt(index) {
+    characterIsConsidered[index] = isConsidered(string[index]);
+  }
+  function consideredStringCharacters(start, count) {
+    return exported.sum(characterIsConsidered.slice(start, start + count));
+  }
+
+  var consideredSubstringCharacters = 0;
+  var index;
+
+  // count the punctuation characters in the substring, also prefill the initial portion of the cache
+  for (index = 0; index < substringLength; index += 1) {
+    consideredSubstringCharacters += isConsidered(substring[index]);
+    updateConsideredCharacterAt(index);
+  }
+
+  for (index = 0; index < stringLength; index += 1) {
+    var potentialMatchLength = consideredSubstringCharacters;
+    updateConsideredCharacterAt(index + potentialMatchLength);
+
+    // increase the length of the potential match until any of these
+    // a) it contains the same amount of considered characters as the substring
+    // b) it reaches the end of the string
+    while (
+      consideredStringCharacters(index, potentialMatchLength) < consideredSubstringCharacters &&
+      index + potentialMatchLength <= stringLength
+    ) {
+      potentialMatchLength += 1;
+      updateConsideredCharacterAt(index + potentialMatchLength);
+    }
+
+    // now the potential match contains the same amount of considered characters as the substring
+    // and they can be compared fairly
+    var potentialMatch = string.substring(index, index + potentialMatchLength);
+    if (collator.compare(potentialMatch, substring) === 0) {
+      exported.noPunctuationIndexOf.lastLength = potentialMatchLength;
+      return index;
+    }
+  }
+
+  return -1;
+};
+
+exported.sum = function(list) {
+  return list.reduce(function(accumulator, item) {
+    return accumulator + item;
+  }, 0);
+};
+
+exported.getCollator = function(Intl, localesOrCollator, options) {
+  if (localesOrCollator && localesOrCollator instanceof Intl.Collator) {
+    return localesOrCollator;
+  }
+
+  options = exported.getOptions(options);
+  return new Intl.Collator(localesOrCollator, options);
+};
+
+exported.getOptions = function(options) {
+  if (!options) {
+    options = {};
+  }
+  options.usage = 'search';
+  return options;
+};
+
+module.exports = exported;
 
 
 /***/ }),
@@ -64375,7 +64775,9 @@ component.options.__file = "Action.vue"
 
 
 
+ // localeIndexOf find multilanguage strings
 
+String.prototype.localeIndexOf = __webpack_require__("acdd").prototypeLocaleIndexOf(Intl);
 /**
  * COMPONENTES
  */
@@ -69404,6 +69806,13 @@ module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
 
+
+/***/ }),
+
+/***/ "c512":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 

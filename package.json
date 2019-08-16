@@ -12,6 +12,7 @@
     "bootstrap-datepicker": "^1.8.0",
     "clockpicker": "0.0.7",
     "d3": "^5.7.0",
+    "locale-index-of": "^1.0.5",
     "moment": "^2.23.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",

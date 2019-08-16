@@ -18,6 +18,8 @@ require('bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js');
 moment.locale('es');
 window.Vue = Vue;
 Vue.config.productionTip = false;
+// localeIndexOf find multilanguage strings
+String.prototype.localeIndexOf = require('locale-index-of').prototypeLocaleIndexOf(Intl);
 
 // Api helpers
 Object.assign(window, api);

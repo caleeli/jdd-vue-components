@@ -3,6 +3,14 @@
         <center><img alt="Vue logo" src="./assets/icon/icon_83.5@2x.png"></center>
         <error v-model="errors" property="message"></error>
         <datetime v-model="datetime" type="datetime"></datetime>
+        <suggest v-model="suggest"
+                    :data="suggestList"
+                    id-field="attributes.name"
+                    filter-by="attributes.name">
+            <template slot-scope="{row,format}">
+                <span v-html="format(row.attributes.name)" style="font-size: 1rem"></span>
+            </template>
+        </suggest>
         <br>
         <grid v-model="grid">
             <template slot="header">
@@ -36,6 +44,12 @@
         components,
         data() {
             return {
+                suggestList: [
+                    {id:1,attributes:{name:"one"}},
+                    {id:2,attributes:{name:"two"}},
+                    {id:3,attributes:{name:"three"}},
+                ],
+                suggest: '',
                 grid: [
                     {a:'Abc',b:'Definition',c:'Clei',d:'Alex',e:'Luthor'},
                     {a:'Def',b:'Action',c:'Axon',d:'Martin',e:'King'},
