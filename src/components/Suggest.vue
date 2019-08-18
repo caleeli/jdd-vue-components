@@ -5,6 +5,7 @@
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
+      :placeholder="placeholder"
       @focus="focus"
       @blur="blur"
       @click="click"

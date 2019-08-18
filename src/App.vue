@@ -5,6 +5,7 @@
         <datetime v-model="datetime" type="datetime"></datetime>
         <suggest v-model="suggest"
                     :data="suggestList"
+                    placeholder="suggest"
                     id-field="attributes.name"
                     filter-by="attributes.name">
             <template slot-scope="{row,format}">
