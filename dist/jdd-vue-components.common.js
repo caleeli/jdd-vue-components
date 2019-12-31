@@ -899,12 +899,12 @@ module.exports.f = function getOwnPropertyNames(it) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"22550d4c-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datetime.vue?vue&type=template&id=38f7ad22&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"22550d4c-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datetime.vue?vue&type=template&id=265e9ec4&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{class:_vm.myClass,on:{"click":_vm.click}},[(!_vm.readOnly && _vm.type!='time')?_c('a',{staticClass:"calendar-button",attrs:{"href":"javascript:void(0)"}},[_c('i',{staticClass:"fa fa-calendar"}),_c('input',{attrs:{"type":"hidden"}})]):_vm._e(),(_vm.readOnly && _vm.type!='time' && _vm.dateFormated!=_vm.emptyDate)?_c('a',{staticClass:"calendar-button",attrs:{"href":"javascript:void(0)"}},[_vm._v("\n        "+_vm._s(_vm.dateFormated)+"\n        "),_c('input',{attrs:{"type":"hidden"}})]):_vm._e(),(!_vm.readOnly && _vm.type!='date')?_c('span',{staticClass:"clock-button"},[_c('input',{attrs:{"type":"hidden","value":"09:30"}}),_vm._m(0)]):_vm._e(),(!_vm.readOnly || _vm.dateFormated == _vm.emptyDate)?[_vm._v("\n        "+_vm._s(_vm.dateFormated)+"\n    ")]:_vm._e()],2)}
 var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('a',{staticClass:"input-group-addon",attrs:{"href":"javascript:void(0)"}},[_c('span',{staticClass:"fa fa-clock"})])}]
 
 
-// CONCATENATED MODULE: ./src/components/Datetime.vue?vue&type=template&id=38f7ad22&
+// CONCATENATED MODULE: ./src/components/Datetime.vue?vue&type=template&id=265e9ec4&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.split.js
 var es6_regexp_split = __webpack_require__("28a5");
@@ -951,7 +951,7 @@ __webpack_require__("efa8");
 
 /* harmony default export */ var Datetimevue_type_script_lang_js_ = ({
   props: {
-    value: String,
+    value: null,
     format: String,
     type: String,
     //date,time,datetime
@@ -1008,7 +1008,7 @@ __webpack_require__("efa8");
           e.date.setMinutes(time.minute);
         }
 
-        self.$emit('input', moment_default()(e.date).format());
+        self.$emit('input', moment_default()(e.date).format(_this2.getModelFormat()));
       });
       window.$(_this2.$el).find('.clock-button').clockpicker({
         autoclose: true,
@@ -1016,7 +1016,7 @@ __webpack_require__("efa8");
           var time = self.getTime();
           var date = self.value ? moment_default()(self.value) : moment_default()();
           date.set(time);
-          self.$emit('input', moment_default()(date).format());
+          self.$emit('input', moment_default()(date).format(_this2.getModelFormat()));
         }
       });
     });
@@ -1037,6 +1037,9 @@ __webpack_require__("efa8");
         hour: now.getHours(),
         minute: now.getMinutes()
       };
+    },
+    getModelFormat: function getModelFormat() {
+      return this.type === 'date' ? "YYYY-MM-DD" : this.type === 'time' ? "HH:mm" : "YYYY-MM-DD HH:mm:ss";
     },
     getDateFormat: function getDateFormat() {
       return this.format ? this.format : this.type === 'date' ? "DD-MM-YYYY" : this.type === 'time' ? "HH:mm" : "DD-MM-YYYY HH:mm";

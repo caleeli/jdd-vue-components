@@ -25,7 +25,7 @@
 
     export default {
         props: {
-            value: String,
+            value: null,
             format: String,
             type: String, //date,time,datetime
             readOnly: Boolean,
@@ -75,7 +75,7 @@
                         e.date.setHours(time.hour);
                         e.date.setMinutes(time.minute);
                     }
-                    self.$emit('input', moment(e.date).format());
+                    self.$emit('input', moment(e.date).format(this.getModelFormat()));
                 });
                 window.$(this.$el).find('.clock-button').clockpicker({
                     autoclose: true,
@@ -83,7 +83,7 @@
                         const time = self.getTime();
                         const date = self.value ? moment(self.value) : moment();
                         date.set(time);
-                        self.$emit('input', moment(date).format());
+                        self.$emit('input', moment(date).format(this.getModelFormat()));
                     }
                 });
             });
@@ -98,6 +98,9 @@
                 const t = window.$(this.$el).find('.clock-button input')[0].value.split(':');
                 const now = new Date();
                 return t.length === 2 ? {hour: t[0] * 1, minute: t[1] * 1} : {hour: now.getHours(), minute: now.getMinutes()};
+            },
+            getModelFormat() {
+                return this.type === 'date' ? "YYYY-MM-DD" : (this.type === 'time' ? "HH:mm" : "YYYY-MM-DD HH:mm:ss");
             },
             getDateFormat() {
                 return this.format ? this.format : (this.type === 'date' ? "DD-MM-YYYY" : (this.type === 'time' ? "HH:mm" : "DD-MM-YYYY HH:mm"));
