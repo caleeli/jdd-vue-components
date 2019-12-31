@@ -1,5 +1,5 @@
 <template>
-    <span v-bind:class="myClass">
+    <span v-bind:class="myClass" @click="click">
         <a v-if="!readOnly && type!='time'" href="javascript:void(0)" class="calendar-button">
             <i class="fa fa-calendar"></i>
             <input type="hidden">
@@ -89,6 +89,11 @@
             });
         },
         methods: {
+            click(event) {
+                if (event.target === this.$el) {
+                    window.$(this.$el).find('.calendar-button').click();
+                }
+            },
             getTime() {
                 const t = window.$(this.$el).find('.clock-button input')[0].value.split(':');
                 const now = new Date();
