@@ -2,7 +2,7 @@
     <div class="dropdown">
         <!-- Muestra el contenido definido en el slot cuando se tiene un valor seleccionado de la lista -->
         <div v-if="!multiple && selected && !inputFocus" class="selected-option"><slot :row="selected" :format="textValue" :remove="remove"></slot></div>
-        <div v-if="multiple && selected && !inputFocus" class="selected-option"><slot v-for="(row,i) in selected" :row="row" :format="textValue" :remove="remove"></slot></div>
+        <div v-if="multiple && selected && !inputFocus" class="selected-option"><slot v-for="row in selected" :row="row" :format="textValue" :remove="remove"></slot></div>
         <!-- Muestra el valor textual cuando no se seleccion un valor de la lista de opciones -->
         <div v-if="!(selected && !inputFocus) && !inputFocus" class="selected-option">{{value}}</div>
         <i class="fa fa-times select-box-clear text-muted" @click="clear"></i>
@@ -12,7 +12,7 @@
                 @focus="focus" @blur="blur" @click="click"
                 v-model="text">
         <ul class="dropdown-menu select-list">
-            <li v-for="(row, index) in dataFiltered" v-bind:value="getKey(row)" v-if="index<5" class="dropdown-item" @click="select(row)">
+            <li v-for="row in dataFiltered.slice(0, 5)" :key="getKey(row)" v-bind:value="getKey(row)" class="dropdown-item" @click="select(row)">
             <slot :row="row" :format="format"></slot>
             </li>
         </ul>
@@ -99,7 +99,7 @@
                 return Object.evaluateRef(row, this.idField ? this.idField : 'id');
             },
             textValue(value) {
-                return $('<i></i>').text(value).html();
+                return window.$('<i></i>').text(value).html();
             },
             format(input) {
                 let value = this.textValue(input);
@@ -134,12 +134,12 @@
                 }
             },
             isOpen() {
-                return $(this.$el).find("ul:first").is(':visible');
+                return window.$(this.$el).find("ul:first").is(':visible');
             },
             click() {
                 setTimeout(() => {
                     if (!this.isOpen()) {
-                        $(this.$el).find(".dropdown-menu").toggle();
+                        window.$(this.$el).find(".dropdown-menu").toggle();
                     }
                 }, 100);
             },
@@ -147,7 +147,7 @@
                 this.inputFocus = true;
                 setTimeout(() => {
                     if (!this.isOpen()) {
-                        $(this.$el).find(".dropdown-menu").toggle();
+                        window.$(this.$el).find(".dropdown-menu").toggle();
                     }
                 }, 100);
             },
@@ -155,7 +155,7 @@
                 this.inputFocus = false;
                 setTimeout(() => {
                     if (this.isOpen()) {
-                        $(this.$el).find(".dropdown-menu").toggle();
+                        window.$(this.$el).find(".dropdown-menu").toggle();
                     }
                 }, 500);
             },
@@ -170,7 +170,7 @@
                     this.$emit('input', String(this.getKey(row)));
                     this.$emit('change', row);
                 }
-                $(this.$el).find(".selected-option").focus();
+                window.$(this.$el).find(".selected-option").focus();
             }
         },
         mounted() {
