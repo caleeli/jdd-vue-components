@@ -1,12 +1,11 @@
 <template>
     <div class="upload-region" @click="click">
-        <slot></slot>
+        <slot :style="style"></slot>
         <div class="form-file-progress">
             <input type="file"
                    v-on:change="changeFile($event, multiplefile)"
                    v-bind:multiple="multiplefile">
         </div>
-        <div class="form-file-progress-size" v-bind:style="style"></div>
     </div>
 </template>
 
@@ -22,8 +21,7 @@
         },
         computed: {
             style() {
-                return "left: " + this.progress + "%!important;"
-                        + "width: " + (100 - this.progress) + "%!important;";
+                return `linear-gradient(90deg, rbga(0,0,0,0.5) ${this.progress}%, transparent ${100-this.progress}%)`;
             },
         },
         data() {
@@ -54,7 +52,7 @@
                     },
                     error: function(response, status, error) {
                         this.progress = 100;
-                        self.$emit('error', response.responseJSON.message || error);
+                        self.$emit('error', response, status, error);
                     },
                     cache: false,
                     contentType: false,
@@ -88,13 +86,5 @@
         left: 0px;
         top: 0px;
         opacity: 0;
-    }
-    .form-file-progress-size {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        background-color: rgba(0,0,0,0.5);
     }
 </style>
