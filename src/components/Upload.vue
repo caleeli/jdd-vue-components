@@ -52,8 +52,9 @@
                         self.$emit('change', json);
                         self.progress = 100;
                     },
-                    error: function() {
+                    error: function(response, status, error) {
                         this.progress = 100;
+                        self.$emit('error', response.responseJSON.message || error);
                     },
                     cache: false,
                     contentType: false,
