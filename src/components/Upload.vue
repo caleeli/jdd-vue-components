@@ -4,6 +4,7 @@
         <div class="form-file-progress">
             <input type="file"
                    v-on:change="changeFile($event, multiplefile)"
+                   v-bind:accept="accept"
                    v-bind:multiple="multiplefile">
         </div>
     </div>
@@ -12,7 +13,11 @@
 <script>
     export default {
         props: {
-            "value": String,
+            "value": null,
+            "accept": {
+                type: String,
+                default: ""
+            },
             "multiplefile": Boolean,
             "url": {
                 type: String,
@@ -41,7 +46,7 @@
                 }
                 this.progress = 0;
                 window.$.ajax({
-                    url: this.url,
+                    url: this.url + (this.accept ? (this.url.indexOf("?") === -1 ? '?' : '&') + 'accept=' + encodeURIComponent(this.accept) : ''),
                     type: 'POST',
                     data: data,
                     dataType: 'json',
