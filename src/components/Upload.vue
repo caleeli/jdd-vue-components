@@ -1,6 +1,6 @@
 <template>
     <div class="upload-region" @click="click">
-        <slot :style="style"></slot>
+        <slot v-bind:bg-style="bgStyle"></slot>
         <div class="form-file-progress">
             <input type="file"
                    v-on:change="changeFile($event, multiplefile)"
@@ -20,7 +20,7 @@
             },
         },
         computed: {
-            style() {
+            bgStyle() {
                 return `linear-gradient(90deg, rbga(0,0,0,0.5) ${this.progress}%, transparent ${100-this.progress}%)`;
             },
         },
