@@ -12,7 +12,7 @@
                 @focus="focus" @blur="blur" @click="click"
                 v-model="text">
         <ul class="dropdown-menu select-list">
-            <li v-for="(row, index) in dataFiltered" v-bind:value="getKey(row)" v-if="index<5" class="dropdown-item" @click="select(row)">
+            <li v-for="(row, index) in dataFiltered.slice(0, rows)" :key="`select-box-${index}`" v-bind:value="getKey(row)" class="dropdown-item" @click="select(row)">
             <slot :row="row" :format="format" :index="index"></slot>
             </li>
         </ul>
@@ -38,6 +38,10 @@
             readonly: {
                 type: Boolean,
                 default: false,
+            },
+            rows: {
+                type: Number,
+                default: 5,
             },
         },
         data() {
