@@ -4,7 +4,10 @@
     <!-- div v-bind:class="{card: 1, 'h-100': !collapsed}" -->
     <div class="card-header panel-heading clearfix">
       <span class="panel-title">
-        <i v-bind:class="icon" v-if="icon"></i> {{name}}
+        <slot v-if="hasSlot('header')" name="header"></slot>
+        <template v-else>
+            <i v-bind:class="icon" v-if="icon"></i> {{name}}
+        </template>
       </span>
       <div class="panel-buttons panel-tool-options">
         <slot name="actions"></slot>
@@ -18,36 +21,39 @@
 </template>
 
 <script>
-  export default {
-      props: {
-          icon: String,
-          name: String,
-          actions: Object,
-          actionClass: String,
-          direction: String,
-          bodyClass: {
-              type: null,
-              default: "card-body panel-body"
-          }
-      },
-      data() {
-          return {
-              collapsed: this.actions && this.actions.collapse ? this.actions.collapse.active : false,
-          }
-      },
-      methods: {
-          isHorizontal() {
-              return this.direction !== 'vertical';
-          },
-          collapse(key, action) {
-              this.collapsed = action.active;
-          },
-          click(key, action) {
-              this.$emit(key, action);
-              this.$emit('click', key, action);
-          }
-      }
-  }
+export default {
+    props: {
+        icon: String,
+        name: String,
+        actions: Object,
+        actionClass: String,
+        direction: String,
+        bodyClass: {
+            type: null,
+            default: "card-body panel-body"
+        }
+    },
+    data() {
+        return {
+            collapsed: this.actions && this.actions.collapse ? this.actions.collapse.active : false,
+        }
+    },
+    methods: {
+        hasSlot(name) {
+            return !!this.$scopedSlots[name];
+        },
+        isHorizontal() {
+            return this.direction !== 'vertical';
+        },
+        collapse(key, action) {
+            this.collapsed = action.active;
+        },
+        click(key, action) {
+            this.$emit(key, action);
+            this.$emit('click', key, action);
+        }
+    }
+}
 </script>
 
 <style lang="scss" scoped>
