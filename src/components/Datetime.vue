@@ -76,6 +76,7 @@
                         e.date.setMinutes(time.minute);
                     }
                     self.$emit('input', moment(e.date).format(this.getModelFormat()));
+                    self.$emit('change', moment(e.date).format(this.getModelFormat()));
                 });
                 window.$(this.$el).find('.clock-button').clockpicker({
                     autoclose: true,
@@ -83,7 +84,7 @@
                         const time = self.getTime();
                         const date = self.value ? moment(self.value) : moment();
                         date.set(time);
-                        self.$emit('input', moment(date).format(this.getModelFormat()));
+                        self.$emit('change', moment(date).format(this.getModelFormat()));
                     }
                 });
             });
