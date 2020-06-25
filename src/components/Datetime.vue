@@ -1,20 +1,20 @@
 <template>
     <span v-bind:class="myClass" @click="click">
-        <a v-if="!readOnly && type!='time'" href="javascript:void(0)" class="calendar-button">
+        <a v-if="!readOnly2 && type!='time'" href="javascript:void(0)" class="calendar-button">
             <i class="fa fa-calendar"></i>
             <input type="hidden">
         </a>
-        <a v-if="readOnly && type!='time' && dateFormated!=emptyDate" href="javascript:void(0)" class="calendar-button">
+        <a v-if="readOnly2 && type!='time' && dateFormated && dateFormated!=emptyDate" href="javascript:void(0)" class="calendar-button">
             {{dateFormated}}
             <input type="hidden">
         </a>
-        <span v-if="!readOnly && type!='date'" class="clock-button">
+        <span v-if="!readOnly2 && type!='date'" class="clock-button">
             <input type="hidden" value="09:30">
             <a class="input-group-addon" href="javascript:void(0)">
                 <span class="fa fa-clock"></span>
             </a>
         </span>
-        <template v-if="!readOnly || dateFormated == emptyDate">
+        <template v-if="!readOnly2 || dateFormated == emptyDate">
             {{dateFormated}}
         </template>
     </span>
@@ -29,6 +29,7 @@
             format: String,
             type: String, //date,time,datetime
             readOnly: Boolean,
+            readonly: Boolean,
             emptyDate: String
         },
         data() {
@@ -37,9 +38,12 @@
             }
         },
         computed: {
+            readOnly2() {
+                return this.readOnly || this.readonly;
+            },
             dateFormated() {
                 const date = moment(this.value);
-                return date.isValid() ? date.format(this.getDateFormat()) : this.emptyDate;
+                return this.value && date.isValid() ? date.format(this.getDateFormat()) : this.emptyDate;
             },
             myClass() {
                 return this.readOnly ? 'text-nowrap' : 'form-control form-datetime';
