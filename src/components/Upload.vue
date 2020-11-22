@@ -51,7 +51,7 @@
                     data: data,
                     dataType: 'json',
                     success: function(json) {
-                        self.$emit('input', JSON.stringify(json));
+                        self.$emit('input', json);
                         self.$emit('change', json);
                         self.progress = 100;
                     },
