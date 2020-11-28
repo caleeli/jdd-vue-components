@@ -5,7 +5,9 @@
             <input type="file"
                    v-on:change="changeFile($event, multiplefile)"
                    v-bind:accept="accept"
-                   v-bind:multiple="multiplefile">
+                   v-bind:multiple="multiplefile"
+                   v-bind="$attrs"
+            >
         </div>
     </div>
 </template>
