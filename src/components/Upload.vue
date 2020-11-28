@@ -1,6 +1,6 @@
 <template>
     <div class="upload-region" @click="click">
-        <slot v-bind:bg-style="bgStyle"></slot>
+        <slot v-bind:bg-style="bgStyle" v-bind:progress="progress"></slot>
         <div class="form-file-progress">
             <input type="file"
                    v-on:change="changeFile($event, multiplefile)"
