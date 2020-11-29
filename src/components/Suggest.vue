@@ -108,7 +108,7 @@ export default {
       return Object.evaluateRef(row, this.idField ? this.idField : "id");
     },
     textValue(value) {
-      return $("<i></i>")
+      return window.$("<i></i>")
         .text(value)
         .html();
     },
@@ -157,14 +157,14 @@ export default {
       }
     },
     isOpen() {
-      return $(this.$el)
+      return window.$(this.$el)
         .find("ul:first")
         .is(":visible");
     },
     click() {
       setTimeout(() => {
         if (!this.isOpen()) {
-          $(this.$el)
+          window.$(this.$el)
             .find(".dropdown-menu")
             .toggle();
         }
@@ -174,7 +174,7 @@ export default {
       this.inputFocus = true;
       setTimeout(() => {
         if (!this.isOpen()) {
-          $(this.$el)
+          window.$(this.$el)
             .find(".dropdown-menu")
             .toggle();
         }
@@ -184,7 +184,7 @@ export default {
       this.inputFocus = false;
       setTimeout(() => {
         if (this.isOpen()) {
-          $(this.$el)
+          window.$(this.$el)
             .find(".dropdown-menu")
             .toggle();
         }
@@ -203,7 +203,7 @@ export default {
         this.$emit("input", String(this.getKey(row)));
         this.$emit("change", row);
       }
-      $(this.$el)
+      window.$(this.$el)
         .find(".selected-option")
         .focus();
     }
